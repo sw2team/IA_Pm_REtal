@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using pm_retal.Models;
+using System.IO;
+using System.Web.Security;
 
 namespace pm_retal.Controllers
 {
@@ -10,8 +13,87 @@ namespace pm_retal.Controllers
     {
         public ActionResult Index()
         {
+
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }
+        [HttpPost]
+        public ActionResult Register(UserAccount account)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //string fileName = null;
+                //string extension = null;
+                string fileName = Path.GetFileNameWithoutExtension(account.ImageFile.FileName);
+                string extension = Path.GetExtension(account.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                account.ImagePath =fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                account.ImageFile.SaveAs(fileName);
+
+                using (OurDbContext db = new OurDbContext())
+                {
+                    db.userAccount.Add(account);
+                    db.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.Message = account.FullName + "succesfully registerd";
+                return RedirectToAction("Login");
+            }
+            return RedirectToAction("Login");
+        }
+        public ActionResult Login()
+        {
             return View();
         }
+        public ActionResult LogOut()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon(); // it will clear the session at the end of request
+            return RedirectToAction("Index", "Home");
+        }
+        [HttpPost]
+        public ActionResult Login(UserAccount user)
+        {
+            using (OurDbContext db = new OurDbContext())
+            {
+                var usr = db.userAccount.Single(u => u.Email == user.Email && u.Password == user.Password);
+                if (usr != null)
+                {
+                    Session["UserID"] = usr.UserID.ToString();
+                    Session["Email"] = usr.Email.ToString();
+                    Session["FullName"] = usr.FullName.ToString();
+                    Session["ImgPath"] = usr.ImagePath.ToString();
+                    Session["UserType_Id"] = usr.UserType_Id.ToString();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "username or passsword is wrong.");
+                }
+                return View();
+            }
+
+        }
+
+        /*public ActionResult LoggedIn()
+        {
+            if (Session["UserID"] != null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+        }*/
 
         public ActionResult About()
         {
