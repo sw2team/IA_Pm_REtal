@@ -47,7 +47,16 @@ namespace pm_retal.Controllers
                 ViewBag.Message = account.FullName + "succesfully registerd";
                 return RedirectToAction("Login");
             }
-            return RedirectToAction("Login");
+            else {
+                ViewBag.Message = "username or passsword is wrong.";
+                
+                 
+                string newUrl = Url.Action("Login#signup");
+                string plussedUrl = newUrl.Replace("%23", "#");
+                return new RedirectResult(plussedUrl);
+                 
+                //return RedirectToAction("Login#signup");
+            }
         }
         public ActionResult Login()
         {
@@ -62,23 +71,34 @@ namespace pm_retal.Controllers
         [HttpPost]
         public ActionResult Login(UserAccount user)
         {
+
             using (OurDbContext db = new OurDbContext())
             {
-                var usr = db.userAccount.Single(u => u.Email == user.Email && u.Password == user.Password);
-                if (usr != null)
+                if (user.Email != null && user.Password != null)
                 {
-                    Session["UserID"] = usr.UserID.ToString();
-                    Session["Email"] = usr.Email.ToString();
-                    Session["FullName"] = usr.FullName.ToString();
-                    Session["ImgPath"] = usr.ImagePath.ToString();
-                    Session["UserType_Id"] = usr.UserType_Id.ToString();
-                    return RedirectToAction("Index");
+                    //db.userAccount.Single(u => u.Email == user.Email && u.Password == user.Password);
+                    var usr = db.userAccount.Where(u => u.Email.Equals(user.Email) && u.Password.Equals(user.Password)).FirstOrDefault();
+
+                    if (usr != null)
+                    {
+                        Session["UserID"] = usr.UserID.ToString();
+                        Session["Email"] = usr.Email.ToString();
+                        Session["FullName"] = usr.FullName.ToString();
+                        Session["ImgPath"] = usr.ImagePath.ToString();
+                        Session["UserType_Id"] = usr.UserType_Id.ToString();
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "username or passsword is wrong.");
+                        return View();
+                    }
                 }
-                else
-                {
-                    ModelState.AddModelError("", "username or passsword is wrong.");
+                else {
+                    ModelState.AddModelError("", "PLZ fill All the fileds.");
+                    return View();
                 }
-                return View();
+                
             }
 
         }
