@@ -1,6 +1,7 @@
-﻿@* @using pm_retal.Models
-    @model pm_retal.Models.UserAccount *@
-@model IEnumerable<pm_retal.Models.UserAccount>
+﻿@*    @model IEnumerable<pm_retal.Models.UserAccount>   *@
+@model pm_retal.ViewModels.ProfileSkillsViewModel
+
+
 @{
     /**/
 
@@ -80,6 +81,28 @@
 
                             <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
                             <br />
+                            <div id="addskill" class="animate form registration_form">
+                                <section class="skill_content">
+                                    @using (Html.BeginForm("AddSkill", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                    {
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        if (ViewBag.Message != null)
+                                        {
+                                            <div class="form-group">
+                                                <div class="col-md-10">@ViewBag.Message</div>
+                                            </div>
+                                        }
+                                        <div class="form-group">
+                                            @Html.LabelFor(Model => Model.Skills.skillName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                            <div class="col-md-8">
+                                                @Html.EditorFor(model => model.skillName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.skillName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    }
+                                </section>
+                            </div>
+
                             <label for="skill-name">skill name</label><br>
                             <input name="skill-name" id="skill-name"><br>
                             <label for="skill-value">Value</label><br>
@@ -298,26 +321,26 @@
                                             <div role="tabpanel" class="tab-pane fade active in" id="tab1" aria-labelledby="home-tab">
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>FullName</th>
-                                                        <th>JobDescription</th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>FullName</th>
+                                                            <th>JobDescription</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
 
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        if (item.UserType_Id==2)
+                                                        @foreach (var item in Model.UserAccount)
                                                         {
-                                                            <tr>
+                                                            if (item.UserType_Id == 2)
+                                                            {
+                                                                <tr>
 
-                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                </tr>
+                                                            }
                                                         }
-                                                    }
 
                                                     </tbody>
                                                 </table>
@@ -326,26 +349,26 @@
                                             <div role="tabpanel" class="tab-pane fade active in" id="tab2" aria-labelledby="profile-tab">
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>FullName</th>
-                                                        <th>JobDescription</th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>FullName</th>
+                                                            <th>JobDescription</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
 
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        if (item.UserType_Id==4)
+                                                        @foreach (var item in Model.UserAccount)
                                                         {
-                                                            <tr>
+                                                            if (item.UserType_Id == 4)
+                                                            {
+                                                                <tr>
 
-                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                </tr>
+                                                            }
                                                         }
-                                                    }
 
                                                     </tbody>
                                                 </table>
@@ -353,26 +376,26 @@
                                             <div role="tabpanel" class="tab-pane fade active in" id="tab3" aria-labelledby="profile-tab">
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>FullName</th>
-                                                        <th>JobDescription</th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>FullName</th>
+                                                            <th>JobDescription</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
 
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        if (item.UserType_Id==5)
+                                                        @foreach (var item in Model.UserAccount)
                                                         {
-                                                            <tr>
+                                                            if (item.UserType_Id == 5)
+                                                            {
+                                                                <tr>
 
-                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                </tr>
+                                                            }
                                                         }
-                                                    }
 
                                                     </tbody>
                                                 </table>
@@ -380,26 +403,26 @@
                                             <div role="tabpanel" class="tab-pane fade active in" id="tab4" aria-labelledby="profile-tab">
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>FullName</th>
-                                                        <th>JobDescription</th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>FullName</th>
+                                                            <th>JobDescription</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody>
 
-                                                    @foreach (var item in Model)
-                                                    {
-                                                        if (item.UserType_Id==3)
+                                                        @foreach (var item in Model.UserAccount)
                                                         {
-                                                            <tr>
+                                                            if (item.UserType_Id == 3)
+                                                            {
+                                                                <tr>
 
-                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                </tr>
+                                                            }
                                                         }
-                                                    }
 
                                                     </tbody>
                                                 </table>
@@ -407,6 +430,7 @@
                                         </div>
 
                                     </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -414,5 +438,4 @@
             </div>
         </div>
     </div>
-</div>
-<!-- /page content -->
+    <!-- /page content -->

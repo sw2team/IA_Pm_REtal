@@ -7,13 +7,13 @@ namespace pm_retal.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialModel2 : IMigrationMetadata
+    public sealed partial class addtoSkills : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialModel2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(addtoSkills));
         
         string IMigrationMetadata.Id
         {
-            get { return "201904142235103_InitialModel2"; }
+            get { return "201904151227404_addtoSkills"; }
         }
         
         string IMigrationMetadata.Source

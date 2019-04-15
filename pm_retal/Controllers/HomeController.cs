@@ -7,27 +7,22 @@ using pm_retal.Models;
 using System.IO;
 using System.Web.Security;
 using System.Data.Entity;
+using pm_retal.ViewModels;
 
 namespace pm_retal.Controllers
 {
     public class HomeController : Controller
     {
-       /* private ApplicationDbContext _context;
-        public HomeController()
-        {
-            _context = new ApplicationDbContext();
-        }
-        
-        protected override void Dispose(bool disposing)
-        {
-            _context.Dispose();
-        } */
         public ActionResult Profile()
-        {
-            using (OurDbContext db = new OurDbContext())
-            {
-                return View(db.userAccount.ToList());
-            }
+        {   
+            OurDbContext db= new OurDbContext();
+            var Skills = new List<Skills>() { new Skills() };
+            var UserAccount = new List<UserAccount>() { new UserAccount() };
+            ProfileSkillsViewModel model = new ProfileSkillsViewModel();
+            model.Skills = db.skills.ToList();
+            model.UserAccount = db.userAccount.ToList();
+            
+            return View();
         }
         public ActionResult Index()
         {
@@ -76,6 +71,32 @@ namespace pm_retal.Controllers
                 //return RedirectToAction("Login#signup");
             }
         }
+
+        [HttpPost]
+        public ActionResult AddSkill(Skills skill)
+        {
+            if (ModelState.IsValid)
+            {
+                using (OurDbContext db = new OurDbContext())
+                {
+                    db.skills.Add(skill);
+                    db.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.Message = skill.skillName + "succesfully Added";
+                return RedirectToAction("Profile");
+            }
+            else
+            {
+                ViewBag.Message = "Name or value is wrong.";
+               
+
+                string newUrl = Url.Action("Profile");
+                string plussedUrl = newUrl.Replace("%23", "#");
+                return new RedirectResult(plussedUrl);
+            }
+        }
+
         public ActionResult Login()
         {
             return View();
