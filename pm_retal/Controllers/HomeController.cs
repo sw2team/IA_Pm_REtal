@@ -13,16 +13,33 @@ namespace pm_retal.Controllers
 {
     public class HomeController : Controller
     {
+        OurDbContext db = new OurDbContext();
+        public IEnumerable<Skills> getSkills()
+        {
+           
+            var skills = db.skills.ToList();
+            return skills;
+        }
+        public IEnumerable<UserAccount> getUserAccount()
+        {
+
+            var userAccount = db.userAccount.ToList();
+            return userAccount;
+        }
         public ActionResult Profile()
-        {   
-            OurDbContext db= new OurDbContext();
-            var Skills = new List<Skills>() { new Skills() };
-            var UserAccount = new List<UserAccount>() { new UserAccount() };
-            ProfileSkillsViewModel model = new ProfileSkillsViewModel();
-            model.Skills = db.skills.ToList();
+        {
+            var model = new ProfileSkillsViewModel();
             model.UserAccount = db.userAccount.ToList();
-            
-            return View();
+            model.Skills = db.skills.ToList();
+            return View(model);
+            /* OurDbContext db= new OurDbContext();
+             var Skills = new List<Skills>() { new Skills() };
+             var UserAccount = new List<UserAccount>() { new UserAccount() };
+             ProfileSkillsViewModel model = new ProfileSkillsViewModel();
+             model.Skills = db.skills.ToList();
+             model.UserAccount = db.userAccount.ToList();
+            */
+            //return View();
         }
         public ActionResult Index()
         {
@@ -171,3 +188,6 @@ namespace pm_retal.Controllers
         }
     }
 }
+
+
+
