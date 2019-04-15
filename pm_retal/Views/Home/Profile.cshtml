@@ -1,6 +1,6 @@
 ﻿@* @using pm_retal.Models
     @model pm_retal.Models.UserAccount *@
-@model IEnumerable < pm_retal.Models.UserAccount>‏
+@model IEnumerable<pm_retal.Models.UserAccount>
 @{
     /**/
 
@@ -281,43 +281,132 @@
 
                                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                             <li role="presentation" class="active">
-                                                <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Project Manager</a>
+                                                <a href="#tab1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Project Manager</a>
+                                            </li>
+
+                                            <li role="presentation" class="">
+                                                <a href="#tab2" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Team Leaders</a>
+                                            </li>
+                                            <li role="presentation" class="">
+                                                <a href="#tab3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Junior Engineer</a>
+                                            </li>
+                                            <li role="presentation" class="">
+                                                <a href="#tab4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Customers</a>
+                                            </li>
+                                        </ul>
+                                        <div id="myTabContent" class="tab-content">
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab1" aria-labelledby="home-tab">
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>FullName</th>
-                                                            <th>JobDescription</th>
-                                                        </tr>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>FullName</th>
+                                                        <th>JobDescription</th>
+                                                    </tr>
                                                     </thead>
                                                     <tbody>
 
-                                                        @foreach (var user in Model)
-                                                        {   if (user.UserType_Id== 2 )
-                                                             {
-                                                                 <tr>
-                                                                     <td>@user.UserID</td>
-                                                                     <td>@user.FullName</td>
-                                                                     <td>@user.JobDescription</td>
-                                                                 </tr>
-                                                             }
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        if (item.UserType_Id==2)
+                                                        {
+                                                            <tr>
+
+                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            </tr>
                                                         }
+                                                    }
 
                                                     </tbody>
                                                 </table>
-                                            </li>
-                                            <li role="presentation" class="">
-                                                <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Team Leaders</a>
-                                            </li>
-                                            <li role="presentation" class="">
-                                                <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Junior Engineer</a>
-                                            </li>
-                                            <li role="presentation" class="">
-                                                <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Customers</a>
-                                            </li>
-                                        </ul>
+
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab2" aria-labelledby="profile-tab">
+                                                <table class="data table table-striped no-margin">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>FullName</th>
+                                                        <th>JobDescription</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        if (item.UserType_Id==4)
+                                                        {
+                                                            <tr>
+
+                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            </tr>
+                                                        }
+                                                    }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab3" aria-labelledby="profile-tab">
+                                                <table class="data table table-striped no-margin">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>FullName</th>
+                                                        <th>JobDescription</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        if (item.UserType_Id==5)
+                                                        {
+                                                            <tr>
+
+                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            </tr>
+                                                        }
+                                                    }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane fade active in" id="tab4" aria-labelledby="profile-tab">
+                                                <table class="data table table-striped no-margin">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>FullName</th>
+                                                        <th>JobDescription</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    @foreach (var item in Model)
+                                                    {
+                                                        if (item.UserType_Id==3)
+                                                        {
+                                                            <tr>
+
+                                                                <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            </tr>
+                                                        }
+                                                    }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
                                     </div>
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using pm_retal.Models;
 using System.IO;
 using System.Web.Security;
+using System.Data.Entity;
 
 namespace pm_retal.Controllers
 {
@@ -22,10 +23,11 @@ namespace pm_retal.Controllers
             _context.Dispose();
         } */
         public ActionResult Profile()
-        {   
-          
-           // var users= _context.UserAccount.Include(m => m.Fullname).ToList();
-            return View();
+        {
+            using (OurDbContext db = new OurDbContext())
+            {
+                return View(db.userAccount.ToList());
+            }
         }
         public ActionResult Index()
         {
