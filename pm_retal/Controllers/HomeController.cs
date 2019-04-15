@@ -11,6 +11,22 @@ namespace pm_retal.Controllers
 {
     public class HomeController : Controller
     {
+       /* private ApplicationDbContext _context;
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
+        
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+        } */
+        public ActionResult Profile()
+        {   
+          
+           // var users= _context.UserAccount.Include(m => m.Fullname).ToList();
+            return View();
+        }
         public ActionResult Index()
         {
 
@@ -86,6 +102,8 @@ namespace pm_retal.Controllers
                         Session["FullName"] = usr.FullName.ToString();
                         Session["ImgPath"] = usr.ImagePath.ToString();
                         Session["UserType_Id"] = usr.UserType_Id.ToString();
+                        Session["JobDescription"] = usr.JobDescription.ToString();
+                        Session["PhoneNumber"] = usr.PhoneNumber.ToString();
                         return RedirectToAction("Index");
                     }
                     else

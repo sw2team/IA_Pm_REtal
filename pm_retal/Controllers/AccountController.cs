@@ -19,7 +19,6 @@ namespace pm_retal.Controllers
             
         }
         public ActionResult Register() {
-
             return View();
         }
 

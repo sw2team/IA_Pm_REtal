@@ -70,6 +70,9 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
@@ -142,9 +145,6 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.4\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -173,15 +173,24 @@
     <Compile Include="Migrations\201904081949187_InitialModel.Designer.cs">
       <DependentUpon>201904081949187_InitialModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904131841578_InitialModel1.cs" />
+    <Compile Include="Migrations\201904131841578_InitialModel1.Designer.cs">
+      <DependentUpon>201904131841578_InitialModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904142235103_InitialModel2.cs" />
+    <Compile Include="Migrations\201904142235103_InitialModel2.Designer.cs">
+      <DependentUpon>201904142235103_InitialModel2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OurDbContext.cs" />
+    <Compile Include="Models\Skills.cs" />
     <Compile Include="Models\UserAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\PM_retal.mdf" />
-    <Content Include="App_Data\PM_retal_log.ldf">
-      <DependentUpon>PM_retal.mdf</DependentUpon>
+    <Content Include="App_Data\pm_retal.Models.OurDbContext.mdf" />
+    <Content Include="App_Data\pm_retal.Models.OurDbContext_log.ldf">
+      <DependentUpon>pm_retal.Models.OurDbContext.mdf</DependentUpon>
     </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -206,6 +215,66 @@
     <Content Include="Content\images\visa.png" />
     <Content Include="Content\js\datepicker\daterangepicker.js" />
     <Content Include="Content\js\moment\moment.min.js" />
+    <Content Include="Content\production\calendar.html" />
+    <Content Include="Content\production\chartjs.html" />
+    <Content Include="Content\production\chartjs2.html" />
+    <Content Include="Content\production\contacts.html" />
+    <Content Include="Content\production\css\maps\jquery-jvectormap-2.0.3.css" />
+    <Content Include="Content\production\echarts.html" />
+    <Content Include="Content\production\e_commerce.html" />
+    <Content Include="Content\production\fixed_footer.html" />
+    <Content Include="Content\production\fixed_sidebar.html" />
+    <Content Include="Content\production\form.html" />
+    <Content Include="Content\production\form_advanced.html" />
+    <Content Include="Content\production\form_buttons.html" />
+    <Content Include="Content\production\form_upload.html" />
+    <Content Include="Content\production\form_validation.html" />
+    <Content Include="Content\production\form_wizards.html" />
+    <Content Include="Content\production\general_elements.html" />
+    <Content Include="Content\production\glyphicons.html" />
+    <Content Include="Content\production\icons.html" />
+    <Content Include="Content\production\images\american-express.png" />
+    <Content Include="Content\production\images\cropper.jpg" />
+    <Content Include="Content\production\images\favicon.ico" />
+    <Content Include="Content\production\images\img.jpg" />
+    <Content Include="Content\production\images\inbox.png" />
+    <Content Include="Content\production\images\mastercard.png" />
+    <Content Include="Content\production\images\media.jpg" />
+    <Content Include="Content\production\images\paypal.png" />
+    <Content Include="Content\production\images\picture.jpg" />
+    <Content Include="Content\production\images\prod-1.jpg" />
+    <Content Include="Content\production\images\prod-2.jpg" />
+    <Content Include="Content\production\images\prod-3.jpg" />
+    <Content Include="Content\production\images\prod-4.jpg" />
+    <Content Include="Content\production\images\prod-5.jpg" />
+    <Content Include="Content\production\images\user.png" />
+    <Content Include="Content\production\images\visa.png" />
+    <Content Include="Content\production\inbox.html" />
+    <Content Include="Content\production\index.html" />
+    <Content Include="Content\production\index2.html" />
+    <Content Include="Content\production\index3.html" />
+    <Content Include="Content\production\invoice.html" />
+    <Content Include="Content\production\js\datepicker\daterangepicker.js" />
+    <Content Include="Content\production\js\moment\moment.min.js" />
+    <Content Include="Content\production\level2.html" />
+    <Content Include="Content\production\login.html" />
+    <Content Include="Content\production\map.html" />
+    <Content Include="Content\production\media_gallery.html" />
+    <Content Include="Content\production\morisjs.html" />
+    <Content Include="Content\production\other_charts.html" />
+    <Content Include="Content\production\page_403.html" />
+    <Content Include="Content\production\page_404.html" />
+    <Content Include="Content\production\page_500.html" />
+    <Content Include="Content\production\plain_page.html" />
+    <Content Include="Content\production\pricing_tables.html" />
+    <Content Include="Content\production\profile.html" />
+    <Content Include="Content\production\projects.html" />
+    <Content Include="Content\production\project_detail.html" />
+    <Content Include="Content\production\tables.html" />
+    <Content Include="Content\production\tables_dynamic.html" />
+    <Content Include="Content\production\typography.html" />
+    <Content Include="Content\production\widgets.html" />
+    <Content Include="Content\production\xx.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -245,6 +314,7 @@
     <Content Include="Views\Shared\_MyLayout.cshtml" />
     <Content Include="Views\Shared\_LoginLayout.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />
@@ -266,6 +336,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201904081949187_InitialModel.resx">
       <DependentUpon>201904081949187_InitialModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904131841578_InitialModel1.resx">
+      <DependentUpon>201904131841578_InitialModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904142235103_InitialModel2.resx">
+      <DependentUpon>201904142235103_InitialModel2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

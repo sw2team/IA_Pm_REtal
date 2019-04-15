@@ -8,5 +8,6 @@ namespace pm_retal.Models
     public class OurDbContext : DbContext
     {
         public DbSet<UserAccount> userAccount { get; set; }
+        public DbSet<Skills> skills { get; set; }
     }
 }
