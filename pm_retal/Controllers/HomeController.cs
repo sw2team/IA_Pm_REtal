@@ -28,10 +28,18 @@ namespace pm_retal.Controllers
         }
         public ActionResult Profile()
         {
-            var model = new ProfileSkillsViewModel();
+            ProfileSkillsViewModel model = new ProfileSkillsViewModel();
             model.UserAccount = db.userAccount.ToList();
             model.Skills = db.skills.ToList();
-            return View(model);
+            if (Session["UserID"] != null)
+            {
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+           
             /* OurDbContext db= new OurDbContext();
              var Skills = new List<Skills>() { new Skills() };
              var UserAccount = new List<UserAccount>() { new UserAccount() };
@@ -89,30 +97,7 @@ namespace pm_retal.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult AddSkill(Skills skill)
-        {
-            if (ModelState.IsValid)
-            {
-                using (OurDbContext db = new OurDbContext())
-                {
-                    db.skills.Add(skill);
-                    db.SaveChanges();
-                }
-                ModelState.Clear();
-                ViewBag.Message = skill.skillName + "succesfully Added";
-                return RedirectToAction("Profile");
-            }
-            else
-            {
-                ViewBag.Message = "Name or value is wrong.";
-               
-
-                string newUrl = Url.Action("Profile");
-                string plussedUrl = newUrl.Replace("%23", "#");
-                return new RedirectResult(plussedUrl);
-            }
-        }
+    
 
         public ActionResult Login()
         {
@@ -160,7 +145,34 @@ namespace pm_retal.Controllers
             }
 
         }
+        [HttpPost]
+        public ActionResult AddSkill(Skills Skill)
+        {
+            if (ModelState.IsValid)
+            {
+                using (OurDbContext db = new OurDbContext())
 
+                {
+
+                   Skill.Suser_id = Convert.ToInt32(Session["UserID"]);
+            
+                    db.skills.Add(Skill);
+                    db.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.Message =Skill.skillName + "succesfully Added";
+                return RedirectToAction("Profile");
+            }
+            else
+            {
+                ViewBag.Message = "Name or value is wrong.";
+
+
+                string newUrl = Url.Action("Profile");
+                string plussedUrl = newUrl.Replace("%23", "#");
+                return new RedirectResult(plussedUrl);
+            }
+        }
         /*public ActionResult LoggedIn()
         {
             if (Session["UserID"] != null)

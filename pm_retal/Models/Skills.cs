@@ -11,8 +11,10 @@ namespace pm_retal.Models
     {
         [Key]
         public int id { get; set; }
+        [Required(ErrorMessage = "Skill name is required")]
         public string skillName { get; set; }
+        [Required(ErrorMessage = "Value is required")]
         public int value { get; set; }
-        public int user_type_id { get; set; }
+        public int Suser_id { get; set; }
     }
 }

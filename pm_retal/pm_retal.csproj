@@ -173,13 +173,9 @@
     <Compile Include="Migrations\201904081949187_InitialModel.Designer.cs">
       <DependentUpon>201904081949187_InitialModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904131841578_InitialModel1.cs" />
-    <Compile Include="Migrations\201904131841578_InitialModel1.Designer.cs">
-      <DependentUpon>201904131841578_InitialModel1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201904151227404_addtoSkills.cs" />
-    <Compile Include="Migrations\201904151227404_addtoSkills.Designer.cs">
-      <DependentUpon>201904151227404_addtoSkills.cs</DependentUpon>
+    <Compile Include="Migrations\201904152223037_intialskills.cs" />
+    <Compile Include="Migrations\201904152223037_intialskills.Designer.cs">
+      <DependentUpon>201904152223037_intialskills.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OurDbContext.cs" />
@@ -338,11 +334,8 @@
     <EmbeddedResource Include="Migrations\201904081949187_InitialModel.resx">
       <DependentUpon>201904081949187_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904131841578_InitialModel1.resx">
-      <DependentUpon>201904131841578_InitialModel1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904151227404_addtoSkills.resx">
-      <DependentUpon>201904151227404_addtoSkills.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904152223037_intialskills.resx">
+      <DependentUpon>201904152223037_intialskills.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
