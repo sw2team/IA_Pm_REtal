@@ -80,62 +80,68 @@
                             </ul>
 
                             <a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit Profile</a>
-                            <br />
-                            <div id="addskill" class="animate form registration_form">
-                                <section class="skill_content"></section>
-                            </div>
-                            @using (Html.BeginForm("AddSkill", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            @if (Session["UserType_Id"].Equals("1"))
                             {
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                if (ViewBag.Message != null)
-                                {
-                                    <div class="form-group">
-                                        <div class="col-md-10">@ViewBag.Message</div>
-                                    </div>
+                                <a class="btn btn-success" href="@Url.Action("AddUser","Home")"><i class="fa fa-edit m-right-xs"></i>Add Users</a>
+                              
+                              
                                 }
-                                <div class="form-group">
-                                    @Html.LabelFor(Model => Model.skillT.skillName, htmlAttributes: new { @class = "control-label col-md-4" })
-                                    <div class="col-md-8">
-                                        <input class="form-control text-box single-line" id="skillName" name="skillName" type="text" value="">
-                                        @Html.ValidationMessageFor(Model => Model.skillT.skillName, "", new { @class = "text-danger" })
-                                    </div>
+                                <br />
+                                <div id="addskill" class="animate form registration_form">
+                                    <section class="skill_content"></section>
                                 </div>
-                                <div class="form-group">
-                                    @Html.LabelFor(Model => Model.skillT.value, htmlAttributes: new { @class = "control-label col-md-4" })
-                                    <div class="col-md-8">
-                                        <input class="form-control text-box single-line" id="value" name="value" type="text" value="">
-                                        @Html.ValidationMessageFor(Model => Model.skillT.value, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Add Skills" class="btn btn-success" />
-
-                                    </div>
-                                </div>
-                            }
-                            <br />
-                            <!-- start skills -->
-                            <h4>Skills</h4>
-                            <ul class="list-unstyled user_data">
-
-                                @foreach (var item in Model.Skills)
+                                @using (Html.BeginForm("AddSkill", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
                                 {
-                                    if (item.Suser_id == Convert.ToInt32(Session["UserID"]))
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                    if (ViewBag.Message != null)
                                     {
-                                    <li>
-                                        <p>@Html.DisplayFor(modelItem => item.skillName)</p>
-                                        <div class="progress progress_sm">
-                                            <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="@Html.DisplayFor(modelItem => item.value)"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-10">@ViewBag.Message</div>
                                         </div>
-                                    </li>
                                     }
-                                }
-                               
-                                </ul>
-                            <!-- end of skills -->
+                                    <div class="form-group">
+                                        @Html.LabelFor(Model => Model.skillT.skillName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-8">
+                                            <input class="form-control text-box single-line" id="skillName" name="skillName" type="text" value="">
+                                            @Html.ValidationMessageFor(Model => Model.skillT.skillName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(Model => Model.skillT.value, htmlAttributes: new { @class = "control-label col-md-4" })
+                                        <div class="col-md-8">
+                                            <input class="form-control text-box single-line" id="value" name="value" type="text" value="">
+                                            @Html.ValidationMessageFor(Model => Model.skillT.value, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-10">
+                                            <input type="submit" value="Add Skills" class="btn btn-success" />
 
-                        </div>
+                                        </div>
+                                    </div>
+                                }
+                                <br />
+                                <!-- start skills -->
+                                <h4>Skills</h4>
+                                <ul class="list-unstyled user_data">
+
+                                    @foreach (var item in Model.Skills)
+                                    {
+                                        if (item.Suser_id == Convert.ToInt32(Session["UserID"]))
+                                        {
+                                            <li>
+                                                <p>@Html.DisplayFor(modelItem => item.skillName)</p>
+                                                <div class="progress progress_sm">
+                                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="@Html.DisplayFor(modelItem => item.value)"></div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                                <!-- end of skills -->
+
+                            </div>
                         <div class="col-md-9 col-sm-9 col-xs-12">
 
                             <div class="profile_title">
@@ -318,9 +324,10 @@
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>FullName</th>
-                                                            <th>JobDescription</th>
+                                                            <th width="25px">#</th>
+                                                            <th width="25px">FullName</th>
+                                                            <th width="25px">JobDescription</th>
+                                                            <th width="25px">Remove User</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -329,12 +336,13 @@
                                                         {
                                                             if (item.UserType_Id == 2)
                                                             {
-                                                                <tr>
+                                                        <tr>
 
-                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                                </tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")" ><i class="fa fa-edit m-right-xs"></i>Delete</a></td>
+                                                        </tr>
                                                             }
                                                         }
 
@@ -346,9 +354,10 @@
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>FullName</th>
-                                                            <th>JobDescription</th>
+                                                            <th width="25px">#</th>
+                                                            <th width="25px">FullName</th>
+                                                            <th width="25px">JobDescription</th>
+                                                            <th width="25px">Remove User</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -357,12 +366,13 @@
                                                         {
                                                             if (item.UserType_Id == 4)
                                                             {
-                                                                <tr>
+                                                        <tr>
 
-                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                                </tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")"><i class="fa fa-edit m-right-xs"></i>Delete</a></td>
+                                                        </tr>
                                                             }
                                                         }
 
@@ -373,9 +383,10 @@
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>FullName</th>
-                                                            <th>JobDescription</th>
+                                                            <th width="25px">#</th>
+                                                            <th width="25px">FullName</th>
+                                                            <th width="25px">JobDescription</th>
+                                                            <th width="25px">Remove User</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -384,12 +395,13 @@
                                                         {
                                                             if (item.UserType_Id == 5)
                                                             {
-                                                                <tr>
+                                                        <tr>
 
-                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                                </tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")"><i class="fa fa-edit m-right-xs"></i>Delete</a></td>
+                                                        </tr>
                                                             }
                                                         }
 
@@ -400,9 +412,10 @@
                                                 <table class="data table table-striped no-margin">
                                                     <thead>
                                                         <tr>
-                                                            <th>#</th>
-                                                            <th>FullName</th>
-                                                            <th>JobDescription</th>
+                                                            <th width="25px">#</th>
+                                                            <th width="25px">FullName</th>
+                                                            <th width="25px">JobDescription</th>
+                                                            <th width="25px">Remove User</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -411,12 +424,13 @@
                                                         {
                                                             if (item.UserType_Id == 3)
                                                             {
-                                                                <tr>
+                                                        <tr>
 
-                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                                </tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")"><i class="fa fa-edit m-right-xs"></i>Delete</a></td> 
+                                                        </tr>
                                                             }
                                                         }
 

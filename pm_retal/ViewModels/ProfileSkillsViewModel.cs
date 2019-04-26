@@ -14,6 +14,7 @@ namespace pm_retal.ViewModels
         public List<Skills> Skills { get; set; }
         public UserAccount userAccount { get; set; }
         public Skills skillT { get; set; }
+        public Post post { get; set; }
 
     }
 

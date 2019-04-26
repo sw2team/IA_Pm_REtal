@@ -115,9 +115,10 @@ namespace pm_retal.Controllers
 
             using (OurDbContext db = new OurDbContext())
             {
+                
                 if (user.Email != null && user.Password != null)
                 {
-                    //db.userAccount.Single(u => u.Email == user.Email && u.Password == user.Password);
+                    // db.userAccount.Single(u => u.Email == user.Email && u.Password == user.Password);
                     var usr = db.userAccount.Where(u => u.Email.Equals(user.Email) && u.Password.Equals(user.Password)).FirstOrDefault();
 
                     if (usr != null)
@@ -198,8 +199,95 @@ namespace pm_retal.Controllers
 
             return View();
         }
+        [HttpGet]
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Adduser(UserAccount account)
+        {
+            if (ModelState.IsValid)
+            {
+
+                //string fileName = null;
+                //string extension = null;
+                string fileName = Path.GetFileNameWithoutExtension(account.ImageFile.FileName);
+                string extension = Path.GetExtension(account.ImageFile.FileName);
+                fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                account.ImagePath = fileName;
+                fileName = Path.Combine(Server.MapPath("~/Image/"), fileName);
+                account.ImageFile.SaveAs(fileName);
+
+                using (OurDbContext db = new OurDbContext())
+                {
+                    db.userAccount.Add(account);
+                    db.SaveChanges();
+                }
+                ModelState.Clear();
+                ViewBag.Message = account.FullName + "succesfully registerd";
+                return RedirectToAction("profile");
+            }
+            else
+            {
+                ViewBag.Message = "username or passsword is wrong.";
+
+                return View();
+
+                //return RedirectToAction("Login#signup");
+            }
+
+           
+        }
+        
+        [HttpGet]
+        public ActionResult DeleteUser (int id)
+        { 
+            
+                var user = db.userAccount.Single(c => c.UserType_Id == id);
+
+                db.userAccount.Remove(user);
+                db.SaveChanges();
+              
+            return RedirectToAction("profile");
+
+        }
+        [HttpGet]
+        public ActionResult post()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult post(Post post,UserAccount userAccount)
+        {
+            if (Session["UserType_Id"].Equals("2"))
+            {
+                using (OurDbContext db = new OurDbContext())
+                {
+                    db.post.Add(post);
+                    db.SaveChanges();
+                }
+            }
+            else
+            {
+                ModelState.AddModelError("Not Allowd", "You are not allowed to post a project");
+                return View();
+            }
+         
+            return RedirectToAction("post", "Home");
+        }
+
+
+
+        
+        }
     }
-}
+
+    }
+
+    
 
 
 
