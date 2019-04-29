@@ -7,6 +7,14 @@
 
     ViewBag.Title = "Profile";
     Layout = "~/Views/Shared/_MyLayout.cshtml";
+    List<SelectListItem> l1 = new List<SelectListItem>();
+    if ((Session["UserType_Id"].Equals("3")))
+    {
+        foreach (var item in Model.aSTPMs)
+        {
+            l1.Add(new SelectListItem() { Text = item.PM_Account.FullName, Value = Convert.ToString(item.PM_ID) });
+        }
+    }
 }
 
 <!-- page content -->
@@ -83,65 +91,65 @@
                             @if (Session["UserType_Id"].Equals("1"))
                             {
                                 <a class="btn btn-success" href="@Url.Action("AddUser","Home")"><i class="fa fa-edit m-right-xs"></i>Add Users</a>
-                              
-                              
-                                }
-                                <br />
-                                <div id="addskill" class="animate form registration_form">
-                                    <section class="skill_content"></section>
-                                </div>
-                                @using (Html.BeginForm("AddSkill", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
-                                {
-                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                    if (ViewBag.Message != null)
-                                    {
-                                        <div class="form-group">
-                                            <div class="col-md-10">@ViewBag.Message</div>
-                                        </div>
-                                    }
-                                    <div class="form-group">
-                                        @Html.LabelFor(Model => Model.skillT.skillName, htmlAttributes: new { @class = "control-label col-md-4" })
-                                        <div class="col-md-8">
-                                            <input class="form-control text-box single-line" id="skillName" name="skillName" type="text" value="">
-                                            @Html.ValidationMessageFor(Model => Model.skillT.skillName, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(Model => Model.skillT.value, htmlAttributes: new { @class = "control-label col-md-4" })
-                                        <div class="col-md-8">
-                                            <input class="form-control text-box single-line" id="value" name="value" type="text" value="">
-                                            @Html.ValidationMessageFor(Model => Model.skillT.value, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-md-offset-2 col-md-10">
-                                            <input type="submit" value="Add Skills" class="btn btn-success" />
 
-                                        </div>
-                                    </div>
-                                }
-                                <br />
-                                <!-- start skills -->
-                                <h4>Skills</h4>
-                                <ul class="list-unstyled user_data">
 
-                                    @foreach (var item in Model.Skills)
-                                    {
-                                        if (item.Suser_id == Convert.ToInt32(Session["UserID"]))
-                                        {
-                                            <li>
-                                                <p>@Html.DisplayFor(modelItem => item.skillName)</p>
-                                                <div class="progress progress_sm">
-                                                    <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="@Html.DisplayFor(modelItem => item.value)"></div>
-                                                </div>
-                                            </li>
-                                        }
-                                    }
-
-                                </ul>
-                                <!-- end of skills -->
-
+                            }
+                            <br />
+                            <div id="addskill" class="animate form registration_form">
+                                <section class="skill_content"></section>
                             </div>
+                            @using (Html.BeginForm("AddSkill", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                if (ViewBag.Message != null)
+                                {
+                                    <div class="form-group">
+                                        <div class="col-md-10">@ViewBag.Message</div>
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    @Html.LabelFor(Model => Model.skillT.skillName, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <input class="form-control text-box single-line" id="skillName" name="skillName" type="text" value="">
+                                        @Html.ValidationMessageFor(Model => Model.skillT.skillName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(Model => Model.skillT.value, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <input class="form-control text-box single-line" id="value" name="value" type="text" value="">
+                                        @Html.ValidationMessageFor(Model => Model.skillT.value, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-offset-2 col-md-10">
+                                        <input type="submit" value="Add Skills" class="btn btn-success" />
+
+                                    </div>
+                                </div>
+                            }
+                            <br />
+                            <!-- start skills -->
+                            <h4>Skills</h4>
+                            <ul class="list-unstyled user_data">
+
+                                @foreach (var item in Model.Skills)
+                                {
+                                    if (item.Suser_id == Convert.ToInt32(Session["UserID"]))
+                                    {
+                                        <li>
+                                            <p>@Html.DisplayFor(modelItem => item.skillName)</p>
+                                            <div class="progress progress_sm">
+                                                <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="@Html.DisplayFor(modelItem => item.value)"></div>
+                                            </div>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                            <!-- end of skills -->
+
+                        </div>
                         <div class="col-md-9 col-sm-9 col-xs-12">
 
                             <div class="profile_title">
@@ -161,80 +169,122 @@
 
                             <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                 <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
-                                    <li role="presentation" class="active">
-                                        <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Recent Activity</a>
-                                    </li>
-                                    <li role="presentation" class="">
-                                        <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Projects Worked on</a>
-                                    </li>
+
+                                    @if (Session["UserType_Id"].Equals("3"))
+                                    {
+                                        <li role="presentation" class="active">
+                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Working projects</a>
+                                        </li>
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Finshed projects</a>
+                                        </li>}
+                                    @if (Session["UserType_Id"].Equals("2"))
+                                    {
+                                        <li role="presentation" class="active">
+                                            <a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Working projects</a>
+                                        </li>
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Finshed projects</a>
+                                        </li>}
+
+
                                     @if (Session["UserType_Id"].Equals("1"))
                                     {
                                         <li role="presentation" class="">
                                             <a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Profile</a>
                                         </li>
+
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">pended posts</a>
+                                        </li>
+                                    }
+                                    @if (Session["UserType_Id"].Equals("3"))
+                                    {
+                                        <li role="presentation" class="">
+                                            <a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">approved projcts</a>
+                                        </li>
+
+
                                     }
                                 </ul>
                                 <div id="myTabContent" class="tab-content">
                                     <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
 
                                         <!-- start recent activity -->
-                                        <table class="data table table-striped no-margin">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Project Name</th>
-                                                    <th>Client Company</th>
-                                                    <th class="hidden-phone">Hours Spent</th>
-                                                    <th>Contribution</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>New Company Takeover Review</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">18</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>New Partner Contracts Consultanci</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">13</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>3</td>
-                                                    <td>Partners and Inverstors report</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">30</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>4</td>
-                                                    <td>New Company Takeover Review</td>
-                                                    <td>Deveint Inc</td>
-                                                    <td class="hidden-phone">28</td>
-                                                    <td class="vertical-align-mid">
-                                                        <div class="progress">
-                                                            <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        @if (Session["UserType_Id"].Equals("3"))
+                                        {
+                                            <table class="data table table-striped no-margin">
+                                                <thead>
+
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Project Name</th>
+                                                        <th>project Description</th>
+                                                        <th>Project Manager</th>
+                                                        <th>Contribution</th>
+                                                        <ht>Module</ht>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @foreach (var item in Model.CuProjects)
+                                                    {
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Name)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Description)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.PAccount.FullName)</td>
+                                                            <td class="vertical-align-mid">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td> @Html.ActionLink("View Moudule", "#", "Home", new { id = item.ID }, new { @class = "btn btn-success" }) </td>
+                                                        </tr>
+                                                    }
+
+
+                                                </tbody>
+                                            </table>
+
+                                        }
+                                        @if (Session["UserType_Id"].Equals("2"))
+                                        {
+                                            <table class="data table table-striped no-margin">
+                                                <thead>
+
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>Project Name</th>
+                                                        <th>project Description</th>
+                                                        <th>Customer Name</th>
+                                                        <th>Contribution</th>
+                                                        <ht>Module</ht>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    @foreach (var item in Model.PmProjects)
+                                                    {
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Name)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Description)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.CAccount.FullName)</td>
+                                                            <td class="vertical-align-mid">
+                                                                <div class="progress">
+                                                                    <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
+                                                                </div>
+                                                            </td>
+                                                            <td> @Html.ActionLink("Create Moudule", "#", "Home", new { id = item.ID }, new { @class = "btn btn-success" }) </td>
+                                                        </tr>
+                                                    }
+
+
+                                                </tbody>
+                                            </table>
+
+                                        }
                                         <!-- end recent activity -->
 
                                     </div>
@@ -336,13 +386,13 @@
                                                         {
                                                             if (item.UserType_Id == 2)
                                                             {
-                                                        <tr>
+                                                                <tr>
 
-                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")" ><i class="fa fa-edit m-right-xs"></i>Delete</a></td>
-                                                        </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                    <td>  @Html.ActionLink("Delete", "DeleteUser", "Home", new { id = item.UserID }, new { @class = "btn btn-success" }) </td>
+                                                                </tr>
                                                             }
                                                         }
 
@@ -366,13 +416,13 @@
                                                         {
                                                             if (item.UserType_Id == 4)
                                                             {
-                                                        <tr>
+                                                                <tr>
 
-                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")"><i class="fa fa-edit m-right-xs"></i>Delete</a></td>
-                                                        </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                    <td>  @Html.ActionLink("Delete", "DeleteUser", "Home", new { id = item.UserID }, new { @class = "btn btn-success" }) </td>
+                                                                </tr>
                                                             }
                                                         }
 
@@ -395,13 +445,13 @@
                                                         {
                                                             if (item.UserType_Id == 5)
                                                             {
-                                                        <tr>
+                                                                <tr>
 
-                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")"><i class="fa fa-edit m-right-xs"></i>Delete</a></td>
-                                                        </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                    <td>  @Html.ActionLink("Delete", "DeleteUser", "Home", new { id = item.UserID }, new { @class = "btn btn-success" }) </td>
+                                                                </tr>
                                                             }
                                                         }
 
@@ -424,13 +474,13 @@
                                                         {
                                                             if (item.UserType_Id == 3)
                                                             {
-                                                        <tr>
+                                                                <tr>
 
-                                                            <td>@Html.DisplayFor(modelItem => item.UserID)</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
-                                                            <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
-                                                            <td><a class="btn btn-success" href="@Url.Action("DeleteUser","Home")"><i class="fa fa-edit m-right-xs"></i>Delete</a></td> 
-                                                        </tr>
+                                                                    <td>@Html.DisplayFor(modelItem => item.UserID)</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.FullName)‏</td>
+                                                                    <td>@Html.DisplayFor(modelItem => item.JobDescription)</td>
+                                                                    <td>  @Html.ActionLink("Delete", "DeleteUser", "Home", new { id = item.UserID }, new { @class = "btn btn-success" }) </td>
+                                                                </tr>
                                                             }
                                                         }
 
@@ -439,6 +489,65 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane fade active in" id="tab_content4">
+
+                                        <!-- start recent activity -->
+                                        <table class="data table table-striped no-margin">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Customer Name</th>
+                                                    <th>Project Name</th>
+                                                    <th>Project Descrption</th>
+                                                    @if ((Session["UserType_Id"].Equals("3")))
+                                                    {
+                                                        <th>Select project manager</th>
+                                                    }
+                                                    <th>Approve</th>
+                                                    <th>delete</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @if ((Session["UserType_Id"].Equals("1")))
+                                                {
+                                                    foreach (var item in Model.projects)
+                                                    {
+
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.CAccount.FullName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Name)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Description)</td>
+                                                            <td>  @Html.ActionLink("Approve", "Approveproject", "Projects", new { id = item.ID }, new { @class = "btn btn-warning" }) </td>
+                                                            <td>  @Html.ActionLink("Delete", "DeletePost", "Projects", new { id = item.ID }, new { @class = "btn btn-danger" }) </td>
+                                                        </tr>
+                                                    }}
+                                                 @if ((Session["UserType_Id"].Equals("3")))
+                                                {
+                                                    foreach (var item in Model.projects)
+                                                    {
+
+                                                        <tr>
+                                                            <td>@Html.DisplayFor(modelItem => item.ID)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.CAccount.FullName)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Name)</td>
+                                                            <td>@Html.DisplayFor(modelItem => item.post_Description)</td>
+                                                            @using (Html.BeginForm("AddPmToProject", "Projects", FormMethod.Post))
+                                                            {
+                                                                <td> @Html.DropDownList("PM_ID", l1, "Select pm") </td>
+                                                                <td><input type="hidden" name="ID" value="@Html.DisplayFor(modelItem => item.ID)" /></td>
+                                                                <td><button type="submit" class="btn btn-warning">Select</button></td>
+                                                            }
+                                                            <td>  @Html.ActionLink("Delete", "DeletePost", "Projects", new { id = item.ID }, new { @class = "btn btn-danger" }) </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                            
+                                        </table>
+                                        <!-- end recent activity -->
+                                        
                                     </div>
                                 </div>
                             </div>

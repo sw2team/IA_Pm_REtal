@@ -12,9 +12,13 @@ namespace pm_retal.ViewModels
     {
         public List<UserAccount> UserAccount { get; set; }
         public List<Skills> Skills { get; set; }
+        public List<Projects> projects { get; set; }
+        public List<Projects> PmProjects { get; set; }
+        public List<Projects> CuProjects { get; set; }
+        public List<ASTPM> aSTPMs { get; set; }
         public UserAccount userAccount { get; set; }
         public Skills skillT { get; set; }
-        public Post post { get; set; }
+        public Projects project { get; set; }
 
     }
 

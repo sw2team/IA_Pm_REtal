@@ -163,6 +163,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -175,8 +176,21 @@
     <Compile Include="Migrations\201904152223037_intialskills.Designer.cs">
       <DependentUpon>201904152223037_intialskills.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904271238264_ProjectsModel.cs" />
+    <Compile Include="Migrations\201904271238264_ProjectsModel.Designer.cs">
+      <DependentUpon>201904271238264_ProjectsModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904271550347_ProjectsModel1.cs" />
+    <Compile Include="Migrations\201904271550347_ProjectsModel1.Designer.cs">
+      <DependentUpon>201904271550347_ProjectsModel1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201904272134309_ASTPmModel.cs" />
+    <Compile Include="Migrations\201904272134309_ASTPmModel.Designer.cs">
+      <DependentUpon>201904272134309_ASTPmModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\post.cs" />
+    <Compile Include="Models\ASTPM.cs" />
+    <Compile Include="Models\Projects.cs" />
     <Compile Include="Models\OurDbContext.cs" />
     <Compile Include="Models\Skills.cs" />
     <Compile Include="Models\UserAccount.cs" />
@@ -312,11 +326,11 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
     <Content Include="Views\Home\Adduser.cshtml" />
-    <Content Include="Views\Home\post.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Image\" />
     <Folder Include="Models\App_LocalResources\" />
+    <Folder Include="Views\Projects\" />
     <Folder Include="Views\Roles\" />
   </ItemGroup>
   <ItemGroup>
@@ -338,6 +352,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904152223037_intialskills.resx">
       <DependentUpon>201904152223037_intialskills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904271238264_ProjectsModel.resx">
+      <DependentUpon>201904271238264_ProjectsModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904271550347_ProjectsModel1.resx">
+      <DependentUpon>201904271550347_ProjectsModel1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904272134309_ASTPmModel.resx">
+      <DependentUpon>201904272134309_ASTPmModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

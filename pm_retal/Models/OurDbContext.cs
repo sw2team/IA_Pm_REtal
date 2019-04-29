@@ -9,7 +9,9 @@ namespace pm_retal.Models
     {
         public DbSet<UserAccount> userAccount { get; set; }
         public DbSet<Skills> skills { get; set; }
+        public DbSet<Projects>  projects { get; set; }
+        public DbSet<ASTPM> Astpm { get; set; }
 
-        public System.Data.Entity.DbSet<pm_retal.Models.Post> post { get; set; }
+        
     }
 }

@@ -26,6 +26,25 @@ namespace pm_retal.Controllers
             var userAccount = db.userAccount.ToList();
             return userAccount;
         }
+        public IEnumerable<Projects> GetProjects()
+        {
+            var Uid = Convert.ToInt32(Session["UserID"]);
+            var projects = db.projects.Where(o => /*db.Astpm.Any(f =>(f.PM_ID != Uid)) && */o.status.Equals("apro") && o.PM_ID == 0).AsEnumerable().ToList();
+            return projects;
+            
+          
+            /*return (from c in db.Astpm.AsEnumerable()
+                    join p in db.projects.AsEnumerable() on c.Project_ID equals p.ID
+                   
+                    where c.PM_ID !=Uid && p.status.Equals("apro")
+                    select new Projects {
+                      
+                         PM_ID = p.PM_ID,
+                         ID =p.ID,
+                         post_Name = p.post_Name,
+                         post_Description = p.post_Description,
+                         status = p.status} ).ToList();*/
+        }
         public ActionResult Profile()
         {
             ProfileSkillsViewModel model = new ProfileSkillsViewModel();
@@ -33,6 +52,21 @@ namespace pm_retal.Controllers
             model.Skills = db.skills.ToList();
             if (Session["UserID"] != null)
             {
+                if (Session["UserType_Id"].Equals("1"))
+                {
+                    model.projects = db.projects.Where(d => d.status.Equals("pen")).ToList();
+                }
+                else if (Session["UserType_Id"].Equals("3")) {
+                    var Uid = Convert.ToInt32(Session["UserID"]);
+                    model.projects = db.projects.Where(d => d.status.Equals("apro") && d.Customer_ID == Uid && d.PM_ID == 0).ToList();
+                    model.aSTPMs = db.Astpm.Where(a => a.Project.Customer_ID == Uid).ToList();
+                    model.CuProjects = db.projects.Where(c => c.Customer_ID == Uid && c.PM_ID != 0).ToList();
+                } else if (Session["UserType_Id"].Equals("2")) {
+                    var Uid = Convert.ToInt32(Session["UserID"]);
+                    model.PmProjects = db.projects.Where(p => p.PM_ID == Uid).ToList();
+                }
+
+            
                 return View(model);
             }
             else
@@ -51,10 +85,14 @@ namespace pm_retal.Controllers
         }
         public ActionResult Index()
         {
-
+            
+                           var projects = GetProjects();
+          
+            
             if (Session["UserID"] != null)
             {
-                return View();
+
+                return View(projects);
             }
             else
             {
@@ -243,41 +281,19 @@ namespace pm_retal.Controllers
         
         [HttpGet]
         public ActionResult DeleteUser (int id)
-        { 
-            
-                var user = db.userAccount.Single(c => c.UserType_Id == id);
+        {
 
-                db.userAccount.Remove(user);
+            // var user = db.userAccount.Single(c => c.UserType_Id == id);
+            UserAccount account = db.userAccount.Find(id);
+                db.userAccount.Remove(account);
                 db.SaveChanges();
               
             return RedirectToAction("profile");
 
         }
-        [HttpGet]
-        public ActionResult post()
-        {
-            return View();
-        }
+       
 
-        [HttpPost]
-        public ActionResult post(Post post,UserAccount userAccount)
-        {
-            if (Session["UserType_Id"].Equals("2"))
-            {
-                using (OurDbContext db = new OurDbContext())
-                {
-                    db.post.Add(post);
-                    db.SaveChanges();
-                }
-            }
-            else
-            {
-                ModelState.AddModelError("Not Allowd", "You are not allowed to post a project");
-                return View();
-            }
-         
-            return RedirectToAction("post", "Home");
-        }
+       
 
 
 
@@ -285,8 +301,7 @@ namespace pm_retal.Controllers
         }
     }
 
-    }
-
+  
     
 
 
